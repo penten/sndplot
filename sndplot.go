@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+type generator func(x float64) float64
+
 func main() {
 	mode := flag.String("o", "w", "output format (o = oscillogram, s = spectogram, w = wav file)")
 	time := flag.Int("t", 10, "length of output (in seconds)")
@@ -17,7 +19,7 @@ func main() {
 		return
 	}
 
-	f, err := parseFunction(flag.Args())
+	f, err := parseFunction(flag.Args()[0])
 	if err != nil {
 		flagError("Invalid function: " + err.Error())
 		return
